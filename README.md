@@ -1,4 +1,4 @@
 # Manager Web Service
 
-Java, Spring, TypeScript, Angular </br>
+Java, Spring, JavaScript, Vue </br>
 JSON, SaaS
