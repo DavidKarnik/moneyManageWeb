@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "name": "John",
+      "surname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "password123"
+    },
+    {
+      "name": "Jane",
+      "surname": "Smith",
+      "email": "jane.smith@example.com",
+      "password": "securePass"
+    },
+    {
+      "name": "Alice",
+      "surname": "Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "mySecret"
+    },
+    {
+      "name": "Bob",
+      "surname": "Brown",
+      "email": "bob.brown@example.com",
+      "password": "pass123"
+    }
+  ]
+}
