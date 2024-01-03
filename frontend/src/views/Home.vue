@@ -1,14 +1,24 @@
 <template>
-    <div>
-        <h2>Home</h2>
-        <p>Welcome to the home page!</p>
-    </div>
+<!--    <header>-->
+        <div>
+            <HeaderComp/>
+        </div>
+<!--    </header>-->
+
+    <main>
+        <p>Body page</p>
+        <DashboardComp/>
+    </main>
 </template>
 
 
 <script>
+import HeaderComp from "@/components/HeaderComponent.vue";
+import DashboardComp from "@/components/DashboardComponent.vue";
+
 export default {
-    name: "Home"
+    name: "Home",
+    components: {DashboardComp, HeaderComp}
 }
 </script>
 
