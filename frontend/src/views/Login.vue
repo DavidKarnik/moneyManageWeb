@@ -27,7 +27,7 @@ export default {
             console.log("Login with:", this.username, this.password);
 
             // Po úspěšném přihlášení můžete přesměrovat na hlavní stránku
-            this.$router.push("/");
+            this.$router.push("/home");
         },
     },
 };

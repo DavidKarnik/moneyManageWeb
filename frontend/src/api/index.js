@@ -5,11 +5,11 @@ import Login from '@/views/Login.vue';
 
 const routes = [
     {
-        path: '/',
+        path: '/home',
         component: Home,
     },
     {
-        path: '/login',
+        path: '/',
         component: Login,
     },
 ];
