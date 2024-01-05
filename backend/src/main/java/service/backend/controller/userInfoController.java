@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/api") // prefix
+//@CrossOrigin(origins = "http://localhost:5173") // Povolit přístup pouze z tohoto portu
 public class userInfoController {
     @GetMapping("/home")
     public String home() {
@@ -22,8 +23,8 @@ public class userInfoController {
     @GetMapping("/getName")
     public ResponseEntity<Map<String, String>> getName() {
         Map<String, String> response = new HashMap<>();
-        response.put("name", "John Doe"); // Nahraďte tím, co odpovídá vašim datům
-
+        response.put("name", "John Doe");
+        System.out.println("/getName");
         return ResponseEntity.ok(response);
     }
 }

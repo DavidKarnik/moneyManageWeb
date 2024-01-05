@@ -32,6 +32,8 @@ onMounted(async () => {
         // Make an HTTP request to your backend endpoint to fetch the name
         const response = await axios.get('http://localhost:8080/api/getName');
         name.value = response.data.name; // Assuming the response has a 'name' property
+        console.log("name: " + name.value)
+        console.log("response.data: " + response.data)
     } catch (error) {
         console.error('Error fetching name:', error);
     }
