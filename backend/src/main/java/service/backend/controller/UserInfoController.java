@@ -2,8 +2,6 @@ package service.backend.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,7 +11,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/api") // prefix
 //@CrossOrigin(origins = "http://localhost:5173") // Povolit přístup pouze z tohoto portu
-public class userInfoController {
+public class UserInfoController {
     @GetMapping("/home")
     public String home() {
 
