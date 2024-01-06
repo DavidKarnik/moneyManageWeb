@@ -1,15 +1,13 @@
 package service.backend.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 import service.backend.model.Account;
-import service.backend.model.User;
+import service.backend.model.Collection;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,44 +22,60 @@ public class AccountService {
     String filePath = "data/accounts.json";
 
     public AccountService() {
+        accounts = loadAccountsFromJsonFile();
     }
 
-    public List<Account> getUserAccountsByEmail(String email) {
-        // Filtrujeme účty podle e-mailu
+    private List<Account> accounts; // inicializujte tuto proměnnou v konstruktoru nebo metode
+
+    public List<Collection> getUsersCollectionsByEmail(String email) {
         return accounts.stream()
                 .filter(account -> account.getEmail().equals(email))
-                .collect(Collectors.toList());
+                .findFirst() // získáme první odpovídající účet
+                .map(Account::getCollections) // získáme seznam kolekcí z účtu
+                .orElse(List.of()); // pokud účet neexistuje nebo nemá kolekce, vrátíme prázdný seznam
     }
 
 
-    private List<User> loadUsersFromJsonFile() {
+    private List<Account> loadAccountsFromJsonFile() {
         try {
-            String filePath = "data/users.json";
-
             InputStreamReader reader = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8);
 
             JSONParser parser = new JSONParser();
             JSONObject logObject = (JSONObject) parser.parse(reader);
 
             // Get the users array from the log object
-            JSONArray a = (JSONArray) logObject.get("users");
+            JSONArray accountsArray = (JSONArray) logObject.get("accounts");
 
-            List<User> usersFind = new ArrayList<>();
+            List<Account> accountsFind = new ArrayList<>();
 
 
-            for (Object o : a) {
-                JSONObject user = (JSONObject) o;
+            for (Object o : accountsArray) {
+                JSONObject accountUser = (JSONObject) o;
 
-                User userA = new User(
-                        (String) user.get("email"),
-                        (String) user.get("password")
+                JSONArray collectionsJsonArray = (JSONArray) accountUser.get("collections");
+                List<Collection> collections = new ArrayList<>();
+
+                for (Object collectionObj : collectionsJsonArray) {
+                    JSONObject collectionJson = (JSONObject) collectionObj;
+
+                    Collection collection = new Collection(
+                            (int) collectionJson.get("id"),
+                            (String) collectionJson.get("nameOfAccount"),
+                            (Double) collectionJson.get("balance")
+                    );
+
+                    collections.add(collection);
+                }
+
+                Account userA = new Account(
+                        (String) accountUser.get("email"),
+                        collections
                 );
-                usersFind.add(userA);
+                accountsFind.add(userA);
             }
             reader.close();
-            return usersFind;
+            return accountsFind;
         } catch (IOException | ParseException e) {
-            // V případě chyby při čtení ze souboru
             e.printStackTrace();
             return List.of();
         }

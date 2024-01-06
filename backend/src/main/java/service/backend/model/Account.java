@@ -12,4 +12,11 @@ public class Account {
     private String email;
     private List<Collection> collections;
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "email='" + email + '\'' +
+                ", collections=" + collections +
+                '}';
+    }
 }

@@ -22,7 +22,7 @@ const accounts = ref([]);
 onMounted(async () => {
     try {
         // Načtení dat z backendu (předpokládejme, že backend poskytuje API na /api/accounts)
-        const response = await axios.get('http://localhost:8080/api/accounts/john.doe@example.com');
+        const response = await axios.get('http://localhost:8080/api/collections/john.doe@example.com');
         accounts.value = response.data;
     } catch (error) {
         console.error('Error loading accounts:', error);

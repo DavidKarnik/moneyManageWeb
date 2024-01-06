@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Collection {
-    private static long nextId = 1;
+    private static int nextId = 1;
 
-    private Long id;
+    private int id;
     private String nameOfAccount;
     private double balance;
 
@@ -18,7 +18,22 @@ public class Collection {
         this.balance = _balance;
     }
 
-    private Long generateUniqueId() {
+    public Collection(int _id, String _nameOfAccount, double _balance) {
+        this.id = _id;
+        this.nameOfAccount = _nameOfAccount;
+        this.balance = _balance;
+    }
+
+    private int generateUniqueId() {
         return nextId++;
+    }
+
+    @Override
+    public String toString() {
+        return "Collection{" +
+                "id=" + id +
+                ", nameOfAccount='" + nameOfAccount + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }

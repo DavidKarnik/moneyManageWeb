@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import service.backend.model.Account;
+import service.backend.model.Collection;
 import service.backend.service.AccountService;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/accounts/{email}")
-    public List<Account> getUserAccounts(@PathVariable String email) {
-        return accountService.getUserAccounts(email);
+    @GetMapping("/collections/{email}")
+    public List<Collection> getUserAccounts(@PathVariable String email) {
+        return accountService.getUsersCollectionsByEmail(email);
     }
 }
 
