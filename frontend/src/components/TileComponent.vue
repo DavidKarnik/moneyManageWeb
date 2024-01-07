@@ -1,7 +1,7 @@
 <!-- TileComponent.vue -->
 
 <template>
-    <div class="tile">
+    <div class="tile" @click="redirectToTile">
         <h3>{{ nameOfAccount }}</h3>
         <p>ID: {{ id }}</p>
         <p>Balance: {{ balance }}</p>
@@ -9,14 +9,17 @@
 </template>
 
 <script setup>
-defineProps(['id', 'nameOfAccount', 'balance']);
+const props = defineProps(['id', 'nameOfAccount', 'balance']);
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const redirectToTile = () => {
+    router.push(`/api/tile/${props.id}`);
+};
 </script>
 
 <style scoped>
-.tile {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-}
+@import '@/assets/dashboardTiles.css';
 </style>

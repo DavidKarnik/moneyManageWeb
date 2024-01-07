@@ -3,12 +3,14 @@
 <template>
     <div>
         <h2>Account Tiles</h2>
-        <TileComponent
-                v-for="account in accounts"
-                :id="account.id"
-                :nameOfAccount="account.nameOfAccount"
-                :balance="account.balance"
-        />
+        <div class="tile-container">
+            <TileComponent
+                    v-for="account in accounts"
+                    :id="account.id"
+                    :nameOfAccount="account.nameOfAccount"
+                    :balance="account.balance"
+            />
+        </div>
     </div>
 </template>
 
@@ -29,3 +31,7 @@ onMounted(async () => {
     }
 });
 </script>
+
+<style scoped>
+@import '@/assets/dashboardTiles.css';
+</style>
