@@ -15,9 +15,15 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
+// const redirectToTile = () => {
+//     // router.push(`/api/tile/${props.id}`);
+//     router.push(`/collection/${props.id}`);
+// };
+
 const redirectToTile = () => {
-    router.push(`/api/tile/${props.id}`);
+    router.push(`/collection/${props.id}`);
 };
+
 </script>
 
 <style scoped>
