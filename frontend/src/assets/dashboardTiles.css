@@ -19,3 +19,8 @@
 .tile p {
     margin: 5px 0;
 }
+
+.tile:hover {
+    background-color: #d7d7d7;
+    cursor: pointer;
+}

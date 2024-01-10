@@ -55,4 +55,12 @@ onMounted(async () => {
 .logoutSection {
     text-align: right;
 }
+
+.greeting {
+    transition: letter-spacing 0.3s ease-in-out;
+}
+
+.greeting:hover {
+    letter-spacing: 3px;
+}
 </style>
