@@ -23,6 +23,9 @@ public class BackendApplication {
 		List<Collection> collections1 = accountService.getUsersCollectionsByEmail("john.doe@example.com");
 
 		System.out.println(collections1);
+
+		Collection col = new Collection();
+		System.out.println(col.generateUniqueId());
 	}
 
 }

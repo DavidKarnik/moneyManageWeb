@@ -6,7 +6,7 @@
 <!--    </header>-->
 
     <main>
-        <p>Body page</p>
+        <h1>Body page</h1>
         <DashboardComp/>
     </main>
 </template>

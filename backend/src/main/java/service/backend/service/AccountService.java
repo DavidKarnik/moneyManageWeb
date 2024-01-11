@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -59,7 +58,7 @@ public class AccountService {
                     JSONObject collectionJson = (JSONObject) collectionObj;
 
                     Collection collection = new Collection(
-                            (int) collectionJson.get("id"),
+                            (String) collectionJson.get("id"),
                             (String) collectionJson.get("nameOfAccount"),
                             (Double) collectionJson.get("balance")
                     );

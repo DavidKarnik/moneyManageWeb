@@ -4,12 +4,12 @@
       "email": "john.doe@example.com",
       "collections": [
         {
-          "id": 1,
+          "id": "f6681d5d-1ab3-4213-b45c-0f06e0ec1e83",
           "nameOfAccount": "Personal Account",
           "balance": 1000.00
         },
         {
-          "id": 2,
+          "id": "3a268b02-881f-409b-b22e-4205feab2a05",
           "nameOfAccount": "Savings Account",
           "balance": 5000.00
         }
@@ -19,7 +19,7 @@
       "email": "jane.smith@example.com",
       "collections": [
         {
-          "id": 3,
+          "id": "3",
           "nameOfAccount": "Main Account",
           "balance": 3000.00
         }
@@ -29,12 +29,12 @@
       "email": "alice.johnson@example.com",
       "collections": [
         {
-          "id": 4,
+          "id": "4",
           "nameOfAccount": "Investment Account",
           "balance": 8000.00
         },
         {
-          "id": 5,
+          "id": "5",
           "nameOfAccount": "Secondary Account",
           "balance": 2000.00
         }
