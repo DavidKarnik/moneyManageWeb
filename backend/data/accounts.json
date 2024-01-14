@@ -4,7 +4,7 @@
       "email": "john.doe@example.com",
       "collections": [
         {
-          "id": "f6681d5d-1ab3-4213-b45c-0f06e0ec1e83",
+          "id": "f6681d5d-1ab3-4213-b45c",
           "nameOfAccount": "Personal Account",
           "balance": 1000.00,
           "transactions": [

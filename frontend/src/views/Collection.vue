@@ -6,16 +6,16 @@
         <!-- Použití hodnoty v JavaScriptu -->
         <button @click="doSomethingWithId">Do Something</button>
     </div>
-    <ChartComp/>
+    <ChartComponent></ChartComponent>
 </template>
 
 <script>
 import HeaderComp from "@/components/HeaderComponent.vue";
-import ChartComp from "@/components/ChartComponent.vue";
+import ChartComponent from "@/components/ChartComponent.vue";
 
 export default {
     name: "Collection",
-    components: {HeaderComp},
+    components: {ChartComponent, HeaderComp},
     methods: {
         doSomethingWithId() {
             const id = this.$route.params.id;
