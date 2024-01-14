@@ -28,8 +28,17 @@ public class Collection {
         this.balance = _balance;
     }
 
-    public String generateUniqueId() {
-        return UUID.randomUUID().toString();
+    public static String generateUniqueId() {
+
+        String uuidString = UUID.randomUUID().toString();
+
+        String[] parts = uuidString.split("-");
+
+        if (parts.length >= 3) {
+            return parts[0] + "-" + parts[1] + "-" + parts[2];
+        } else {
+            return uuidString;
+        }
     }
 
     @Override
