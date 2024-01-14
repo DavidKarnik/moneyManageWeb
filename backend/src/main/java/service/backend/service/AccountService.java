@@ -7,6 +7,7 @@ import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 import service.backend.model.Account;
 import service.backend.model.Collection;
+import service.backend.model.Transaction;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,6 +35,10 @@ public class AccountService {
                 .orElse(List.of()); // pokud účet neexistuje nebo nemá kolekce, vrátíme prázdný seznam
     }
 
+//    public List<Transaction> getTransactions(String accountId) {
+//
+//    }
+
 
     private List<Account> loadAccountsFromJsonFile() {
         try {
@@ -57,10 +62,18 @@ public class AccountService {
                 for (Object collectionObj : collectionsJsonArray) {
                     JSONObject collectionJson = (JSONObject) collectionObj;
 
+                    JSONArray transactionsArray = (JSONArray) collectionJson.get("transactions");
+                    List<String> transactions = new ArrayList<>();
+
+                    for (Object transaction : transactionsArray) {
+                        transactions.add((String) transaction);
+                    }
+
                     Collection collection = new Collection(
                             (String) collectionJson.get("id"),
                             (String) collectionJson.get("nameOfAccount"),
-                            (Double) collectionJson.get("balance")
+                            (Double) collectionJson.get("balance"),
+                            transactions
                     );
 
                     collections.add(collection);
@@ -79,5 +92,6 @@ public class AccountService {
             return List.of();
         }
     }
+
 }
 

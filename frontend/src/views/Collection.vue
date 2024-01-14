@@ -6,10 +6,12 @@
         <!-- Použití hodnoty v JavaScriptu -->
         <button @click="doSomethingWithId">Do Something</button>
     </div>
+    <ChartComp/>
 </template>
 
 <script>
 import HeaderComp from "@/components/HeaderComponent.vue";
+import ChartComp from "@/components/ChartComponent.vue";
 
 export default {
     name: "Collection",
