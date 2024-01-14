@@ -24,13 +24,13 @@ public class AccountService {
         accounts = loadAccountsFromJsonFile();
     }
 
-    private List<Account> accounts; // inicializujte tuto proměnnou v konstruktoru nebo metode
+    private List<Account> accounts;
 
     public List<Collection> getUsersCollectionsByEmail(String email) {
         return accounts.stream()
                 .filter(account -> account.getEmail().equals(email))
-                .findFirst() // získáme první odpovídající účet
-                .map(Account::getCollections) // získáme seznam kolekcí z účtu
+                .findFirst() // první odpovídající účet
+                .map(Account::getCollections) // seznam kolekcí z účtu
                 .orElse(List.of()); // pokud účet neexistuje nebo nemá kolekce, vrátíme prázdný seznam
     }
 
@@ -42,7 +42,7 @@ public class AccountService {
             JSONParser parser = new JSONParser();
             JSONObject logObject = (JSONObject) parser.parse(reader);
 
-            // Get the users array from the log object
+            // Get the users array from the object
             JSONArray accountsArray = (JSONArray) logObject.get("accounts");
 
             List<Account> accountsFind = new ArrayList<>();

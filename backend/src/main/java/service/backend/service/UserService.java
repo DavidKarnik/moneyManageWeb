@@ -73,7 +73,6 @@ public class UserService {
             reader.close();
             return usersFind;
         } catch (IOException | ParseException e) {
-            // V případě chyby při čtení ze souboru
             e.printStackTrace();
             return List.of();
         }

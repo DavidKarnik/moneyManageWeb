@@ -10,7 +10,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Collection {
-//    private static int nextId = 1;
 
     private String id;
     private String nameOfAccount;
