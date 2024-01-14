@@ -1,10 +1,7 @@
 package service.backend.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import service.backend.model.Collection;
 import service.backend.model.Transaction;
 import service.backend.service.AccountService;
@@ -26,10 +23,18 @@ public class AccountController {
         return accountService.getUsersCollectionsByEmail(email);
     }
 
-    @GetMapping("/transactions/{accountId}")
-    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable String accountId) {
-        List<Transaction> transactions = accountService.getTransactions(accountId);
-        return ResponseEntity.ok(transactions);
+    @GetMapping("/transactions")
+    public ResponseEntity<List<Transaction>> getTransactionsByEmailAndCollectionId(
+            @RequestParam String email,
+            @RequestParam String collectionId
+    ) {
+        List<Transaction> transactions = accountService.getTransactions(email, collectionId);
+
+        if (!transactions.isEmpty()) {
+            return ResponseEntity.ok(transactions);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 

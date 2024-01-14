@@ -35,9 +35,17 @@ public class AccountService {
                 .orElse(List.of()); // pokud účet neexistuje nebo nemá kolekce, vrátíme prázdný seznam
     }
 
-//    public List<Transaction> getTransactions(String accountId) {
-//
-//    }
+    public List<Transaction> getTransactions(String email, String collectionId) {
+        return accounts.stream()
+                .filter(account -> account.getEmail().equals(email))
+                .findFirst()
+                .flatMap(account -> account.getCollections().stream()
+                        .filter(collection -> collection.getId().equals(collectionId))
+                        .findFirst()
+                        .map(Collection::getTransactions))
+                .orElse(List.of());
+    }
+
 
 
     private List<Account> loadAccountsFromJsonFile() {
