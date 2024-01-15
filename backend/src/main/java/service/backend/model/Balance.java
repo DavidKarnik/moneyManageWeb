@@ -7,16 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Transaction {
-    // Log záznamy transakcí
+public class Balance {
+    // reálné konečné stavy účtu v čase
     private String date;
     private double balance;
-//    "date": "2023-05-01 18:07:19"
-//    "balance": 1000.00
 
     @Override
     public String toString() {
-        return "Transaction{" +
+        return "Balance{" +
                 "date='" + date + '\'' +
                 ", balance=" + balance +
                 '}';

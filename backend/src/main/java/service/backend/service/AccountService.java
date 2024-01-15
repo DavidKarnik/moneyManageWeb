@@ -6,6 +6,7 @@ import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 import service.backend.model.Account;
+import service.backend.model.Balance;
 import service.backend.model.Collection;
 import service.backend.model.Transaction;
 
@@ -13,8 +14,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class AccountService {
@@ -99,6 +102,56 @@ public class AccountService {
             e.printStackTrace();
             return List.of();
         }
+    }
+
+
+    public List<Balance> getBalanceHistory(List<Transaction> transactions, double initialBalance) {
+        List<Balance> balanceHistory = new ArrayList<>();
+        double currentBalance = initialBalance;
+
+        // sorted from newest to oldest - for recursive balance calculation
+        transactions.sort(Comparator.comparing(Transaction::getDate).reversed());
+//        transactions.sort(Comparator.comparing(Transaction::getDate));
+
+        // Přidávání prvního záznamu bez změny
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String currentFormattedDate = currentDateTime.format(formatter);
+
+        // Přidání prvního záznamu bez změny
+        Balance initialEntry = new Balance(currentFormattedDate, currentBalance);
+        balanceHistory.add(initialEntry);
+
+        for (Transaction transaction : transactions) {
+            String date = transaction.getDate();
+            double transactionAmount = transaction.getBalance();
+
+            // Reversed, from back to front * -1
+            currentBalance += -1*transactionAmount;
+//            System.out.println(currentBalance);
+
+            Balance historyEntry = new Balance(date, currentBalance);
+            balanceHistory.add(historyEntry);
+        }
+
+        // Reverse for graph representation, from oldest to newest
+        balanceHistory.sort(Comparator.comparing(Balance::getDate));
+
+        // Výpis seřazených dat
+//        balanceHistory.forEach(entry -> System.out.println(entry.getDate() + " - " + entry.getBalance()));
+
+        return balanceHistory;
+    }
+
+    public double getCurrentBalance(String email, String collectionId) {
+        return accounts.stream()
+                .filter(account -> account.getEmail().equals(email))
+                .findFirst()
+                .flatMap(account -> account.getCollections().stream()
+                        .filter(collection -> collection.getId().equals(collectionId))
+                        .findFirst()
+                        .map(Collection::getBalance))
+                .orElse(0.0);  // Pokud účet neexistuje nebo nemá kolekci, vrátíme 0.0
     }
 
 }

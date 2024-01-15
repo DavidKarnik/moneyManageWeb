@@ -1,9 +1,7 @@
 <template>
     <div>
         <h2>Transaction History</h2>
-        <div>
-            <canvas ref="chartCanvas"></canvas>
-        </div>
+        <canvas ref="chartCanvas"></canvas>
     </div>
 </template>
 
@@ -17,9 +15,10 @@ const chartCanvas = ref(null);
 onMounted(async () => {
     try {
         const email = 'john.doe@example.com';
-        const collectionId = 'f6681d5d-1ab3-4213-b45c';
+        // const collectionId = 'f6681d5d-1ab3-4213-b45c';
+        const collectionId = '3a268b02-881f-409b-b22e';
         const response = await axios.get(
-            `http://localhost:8080/api/transactions?email=${email}&collectionId=${collectionId}`
+            `http://localhost:8080/api/balance?email=${email}&collectionId=${collectionId}`
         );
         const transactions = response.data;
 
@@ -34,7 +33,7 @@ onMounted(async () => {
                         label: 'Balance',
                         data: transactions.map((transaction) => transaction.balance),
                         borderColor: 'blue',
-                        fill: false,
+                        fill: true,
                     },
                 ],
             },
@@ -44,3 +43,11 @@ onMounted(async () => {
     }
 });
 </script>
+
+<style scoped>
+
+canvas {
+    width: 100vh !important;
+    /*height: 25vh;*/
+}
+</style>

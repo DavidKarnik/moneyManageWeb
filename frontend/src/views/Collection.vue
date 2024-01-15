@@ -1,12 +1,14 @@
 <template>
     <HeaderComp/>
-    <div>
-        <h1>Collection Page</h1>
-        <p>ID: {{ $route.params.id }}</p>
-        <!-- Použití hodnoty v JavaScriptu -->
-        <button @click="doSomethingWithId">Do Something</button>
+    <div class="collection-page">
+        <div class="collection-info">
+            <h1>Collection Page</h1>
+            <p>ID: {{ $route.params.id }}</p>
+            <!-- Použití hodnoty v JavaScriptu -->
+            <button @click="doSomethingWithId">Do Something</button>
+        </div>
+        <ChartComponent></ChartComponent>
     </div>
-    <ChartComponent></ChartComponent>
 </template>
 
 <script>
@@ -28,4 +30,12 @@ export default {
 
 <style scoped>
 /* Styly pro komponentu */
+.collection-page {
+    display: flex; /* Použijeme flexbox layout model */
+}
+
+.collection-info {
+    /*flex: 1; !* Rovnoměrné rozdělení místa s potomky *!*/
+    margin-right: 20px; /* Přidáme odstup mezi prvky, aby nebyly příliš blízko */
+}
 </style>
