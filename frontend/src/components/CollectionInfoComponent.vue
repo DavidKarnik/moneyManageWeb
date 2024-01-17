@@ -15,23 +15,23 @@ let currentBalance = 0;
 
 onMounted(async () => {
     try {
-        await getCurrentBalance();
+        const email = 'john.doe@example.com';
+        // const collectionId = 'f6681d5d-1ab3-4213-b45c';
+        // const collectionId = '3a268b02-881f-409b-b22e';
+        const responseBalance = await axios.get(
+            `http://localhost:8080/api/collectionInfos?email=${email}&collectionId=${props.collectionId}`
+        );
+        currentBalance = responseBalance.data;
+
+        const paragraph = document.getElementById("balance");
+        paragraph.textContent = "Balance: " + currentBalance;
     } catch (error) {
         console.error('Error fetching transactions:', error);
     }
 });
 
-async function getCurrentBalance() {
-    const email = 'john.doe@example.com';
-    // const collectionId = 'f6681d5d-1ab3-4213-b45c';
-    // const collectionId = '3a268b02-881f-409b-b22e';
-    const responseBalance = await axios.get(
-        `http://localhost:8080/api/getCurrentBalance?email=${email}&collectionId=${props.collectionId}`
-    );
-    currentBalance = responseBalance.data;
+function getCurrentBalance() {
 
-    const paragraph = document.getElementById("balance");
-    paragraph.textContent = "Balance: " + currentBalance;
 }
 </script>
 

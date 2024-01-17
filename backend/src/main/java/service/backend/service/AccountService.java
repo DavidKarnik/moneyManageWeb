@@ -31,17 +31,13 @@ public class AccountService {
     private List<Account> accounts;
 
     public List<Collection> getUsersCollectionsByEmail(String email) {
-        return accounts.stream()
-                .filter(account -> account.getEmail().equals(email))
-                .findFirst() // první odpovídající účet
+        return getUserAccountByEmail(email) // první odpovídající účet
                 .map(Account::getCollections) // seznam kolekcí z účtu
                 .orElse(List.of()); // pokud účet neexistuje nebo nemá kolekce, vrátíme prázdný seznam
     }
 
     public List<Transaction> getTransactions(String email, String collectionId) {
-        return accounts.stream()
-                .filter(account -> account.getEmail().equals(email))
-                .findFirst()
+        return getUserAccountByEmail(email)
                 .flatMap(account -> account.getCollections().stream()
                         .filter(collection -> collection.getId().equals(collectionId))
                         .findFirst()
@@ -49,7 +45,11 @@ public class AccountService {
                 .orElse(List.of());
     }
 
-
+    private Optional<Account> getUserAccountByEmail(String email) {
+        return accounts.stream()
+                .filter(account -> account.getEmail().equals(email))
+                .findFirst();
+    }
 
     private List<Account> loadAccountsFromJsonFile() {
         try {
@@ -144,9 +144,7 @@ public class AccountService {
     }
 
     public double getCurrentBalance(String email, String collectionId) {
-        return accounts.stream()
-                .filter(account -> account.getEmail().equals(email))
-                .findFirst()
+        return getUserAccountByEmail(email)
                 .flatMap(account -> account.getCollections().stream()
                         .filter(collection -> collection.getId().equals(collectionId))
                         .findFirst()
