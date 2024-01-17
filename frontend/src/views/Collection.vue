@@ -1,13 +1,13 @@
 <template>
     <HeaderComp/>
+    <h1>Collection Page</h1>
     <div class="collection-page">
         <div class="collection-info">
-            <h1>Collection Page</h1>
             <p>ID: {{ $route.params.id }}</p>
             <!-- Použití hodnoty v JavaScriptu -->
             <button @click="doSomethingWithId">Do Something</button>
         </div>
-        <ChartComponent></ChartComponent>
+        <ChartComponent :collectionId="$route.params.id"></ChartComponent>
     </div>
 </template>
 
