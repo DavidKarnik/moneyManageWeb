@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -37,19 +36,52 @@ public class AccountService {
     }
 
     public List<Transaction> getTransactions(String email, String collectionId) {
-        return getUserAccountByEmail(email)
-                .flatMap(account -> account.getCollections().stream()
-                        .filter(collection -> collection.getId().equals(collectionId))
-                        .findFirst()
-                        .map(Collection::getTransactions))
+        return getCollection(email, collectionId)
+                .map(Collection::getTransactions)
                 .orElse(List.of());
     }
+
+    //
+    // Collection Infos -----------------------------------------------------------------------------------------
+    //
+
+
+    public double getCurrentBalance(String email, String collectionId) {
+        return getCollection(email, collectionId)
+                .map(Collection::getBalance)
+                .orElse(0.0);
+    }
+
+    public Balance getHighestBalance(String email, String collectionId) {
+        List<Balance> balances = getBalanceHistory(email,collectionId);
+        return balances.stream()
+                .max(Comparator.comparing(Balance::getBalance))
+                .orElse(null);
+    }
+
+    public Balance getLowestBalance(String email, String collectionId) {
+        List<Balance> balances = getBalanceHistory(email,collectionId);
+        return balances.stream()
+                .min(Comparator.comparing(Balance::getBalance))
+                .orElse(null);
+    }
+
+    // For Code Duplicity
 
     private Optional<Account> getUserAccountByEmail(String email) {
         return accounts.stream()
                 .filter(account -> account.getEmail().equals(email))
                 .findFirst();
     }
+
+    private Optional<Collection> getCollection(String email, String collectionId) {
+        return getUserAccountByEmail(email)
+                .flatMap(account -> account.getCollections().stream()
+                        .filter(collection -> collection.getId().equals(collectionId))
+                        .findFirst());
+    }
+
+    // Another Methods
 
     private List<Account> loadAccountsFromJsonFile() {
         try {
@@ -105,9 +137,13 @@ public class AccountService {
     }
 
 
-    public List<Balance> getBalanceHistory(List<Transaction> transactions, double initialBalance) {
+    public List<Balance> getBalanceHistory(String email, String collectionId) {
+
+        List<Transaction> transactions = getTransactions(email, collectionId);
+
         List<Balance> balanceHistory = new ArrayList<>();
-        double currentBalance = initialBalance;
+
+        double currentBalance = getCurrentBalance(email,collectionId);
 
         // sorted from newest to oldest - for recursive balance calculation
         transactions.sort(Comparator.comparing(Transaction::getDate).reversed());
@@ -141,15 +177,6 @@ public class AccountService {
 //        balanceHistory.forEach(entry -> System.out.println(entry.getDate() + " - " + entry.getBalance()));
 
         return balanceHistory;
-    }
-
-    public double getCurrentBalance(String email, String collectionId) {
-        return getUserAccountByEmail(email)
-                .flatMap(account -> account.getCollections().stream()
-                        .filter(collection -> collection.getId().equals(collectionId))
-                        .findFirst()
-                        .map(Collection::getBalance))
-                .orElse(0.0);  // Pokud účet neexistuje nebo nemá kolekci, vrátíme 0.0
     }
 
 }

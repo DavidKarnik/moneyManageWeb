@@ -1,5 +1,8 @@
 package service.backend.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.backend.model.Balance;
@@ -43,7 +46,7 @@ public class AccountController {
             @RequestParam String email,
             @RequestParam String collectionId
     ) {
-        List<Balance> balance = accountService.getBalanceHistory(accountService.getTransactions(email, collectionId), accountService.getCurrentBalance(email, collectionId));
+        List<Balance> balance = accountService.getBalanceHistory(email, collectionId);
 
         if (!balance.isEmpty()) {
             return ResponseEntity.ok(balance);
@@ -52,12 +55,23 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/collectionInfos")
-    public double getCurrentBalanceOfAccountByEmailAndCollectionId(
-            @RequestParam String email,
-            @RequestParam String collectionId
-    ) {
-        return accountService.getCurrentBalance(email, collectionId);
+    @GetMapping("/currentBalance")
+    public ResponseEntity<Double> getCurrentBalance(@RequestParam String email, @RequestParam String collectionId) {
+        double currentBalance = accountService.getCurrentBalance(email, collectionId);
+        return ResponseEntity.ok(currentBalance);
     }
+
+    @GetMapping("/highestBalance")
+    public ResponseEntity<Balance> getHighestBalance(@RequestParam String email, @RequestParam String collectionId) {
+        Balance highestBalance = accountService.getHighestBalance(email,collectionId);
+        return ResponseEntity.ok(highestBalance);
+    }
+
+    @GetMapping("/lowestBalance")
+    public ResponseEntity<Balance> getLowestBalance(@RequestParam String email, @RequestParam String collectionId) {
+        Balance lowestBalance = accountService.getLowestBalance(email,collectionId);
+        return ResponseEntity.ok(lowestBalance);
+    }
+
 }
 

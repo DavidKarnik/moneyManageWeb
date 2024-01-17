@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Balance {
-    // reálné konečné stavy účtu v čase
+    // reálné konečné stavy účtu v čase vypočtené z transakcí
     private String date;
     private double balance;
 
