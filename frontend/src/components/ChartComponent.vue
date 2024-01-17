@@ -21,7 +21,7 @@ onMounted(async () => {
         // const collectionId = 'f6681d5d-1ab3-4213-b45c';
         // const collectionId = '3a268b02-881f-409b-b22e';
         const response = await axios.get(
-            `http://localhost:8080/api/balance?email=${email}&collectionId=${props.collectionId}`
+            `http://localhost:8080/api/balances?email=${email}&collectionId=${props.collectionId}`
         );
         const transactions = response.data;
 

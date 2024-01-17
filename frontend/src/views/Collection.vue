@@ -1,23 +1,26 @@
 <template>
     <HeaderComp/>
-    <h1>Collection Page</h1>
-    <div class="collection-page">
-        <div class="collection-info">
-            <p>ID: {{ $route.params.id }}</p>
-            <!-- Použití hodnoty v JavaScriptu -->
-            <button @click="doSomethingWithId">Do Something</button>
+    <main>
+        <h1>Collection Page</h1>
+        <div class="collection-page">
+            <div class="collection-info">
+                <CollectionInfoComponent :collectionId="$route.params.id"></CollectionInfoComponent>
+                <!-- Použití hodnoty v JavaScriptu -->
+                <button @click="doSomethingWithId">Do Something</button>
+            </div>
+            <ChartComponent :collectionId="$route.params.id"></ChartComponent>
         </div>
-        <ChartComponent :collectionId="$route.params.id"></ChartComponent>
-    </div>
+    </main>
 </template>
 
 <script>
 import HeaderComp from "@/components/HeaderComponent.vue";
 import ChartComponent from "@/components/ChartComponent.vue";
+import CollectionInfoComponent from "@/components/CollectionInfoComponent.vue";
 
 export default {
     name: "Collection",
-    components: {ChartComponent, HeaderComp},
+    components: {CollectionInfoComponent, ChartComponent, HeaderComp},
     methods: {
         doSomethingWithId() {
             const id = this.$route.params.id;
@@ -29,6 +32,11 @@ export default {
 </script>
 
 <style scoped>
+
+main {
+    padding: 10px;
+}
+
 /* Styly pro komponentu */
 .collection-page {
     display: flex; /* Použijeme flexbox layout model */
