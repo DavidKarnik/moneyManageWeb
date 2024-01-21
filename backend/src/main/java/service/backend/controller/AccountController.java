@@ -1,6 +1,5 @@
 package service.backend.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.backend.model.Balance;
