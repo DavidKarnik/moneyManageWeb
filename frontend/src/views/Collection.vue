@@ -10,6 +10,7 @@
             </div>
             <ChartComponent :collectionId="$route.params.id"></ChartComponent>
         </div>
+        <TransactionPostComponent></TransactionPostComponent>
     </main>
 </template>
 
@@ -17,10 +18,11 @@
 import HeaderComp from "@/components/HeaderComponent.vue";
 import ChartComponent from "@/components/ChartComponent.vue";
 import CollectionInfoComponent from "@/components/CollectionInfoComponent.vue";
+import TransactionPostComponent from "@/components/TransactionPostComponent.vue";
 
 export default {
     name: "Collection",
-    components: {CollectionInfoComponent, ChartComponent, HeaderComp},
+    components: {CollectionInfoComponent, ChartComponent, HeaderComp, TransactionPostComponent},
     methods: {
         doSomethingWithId() {
             const id = this.$route.params.id;
