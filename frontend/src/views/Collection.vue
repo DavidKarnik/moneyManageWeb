@@ -1,17 +1,17 @@
 <template>
     <HeaderComp/>
-    <main>
-        <h1>Collection Page</h1>
-        <div class="collection-page">
-            <div class="collection-info">
-                <CollectionInfoComponent :collectionId="$route.params.id"></CollectionInfoComponent>
-                <!-- Použití hodnoty v JavaScriptu -->
-                <button @click="doSomethingWithId">Do Something</button>
-            </div>
-            <ChartComponent :collectionId="$route.params.id"></ChartComponent>
-        </div>
-        <TransactionPostComponent></TransactionPostComponent>
-    </main>
+      <main>
+          <h1>Collection Page</h1>
+          <div class="collection-page">
+              <div class="collection-info">
+                  <CollectionInfoComponent :collectionId="$route.params.id"></CollectionInfoComponent>
+                  <!-- Použití hodnoty v JavaScriptu -->
+                  <button @click="doSomethingWithId">Do Something</button>
+              </div>
+              <ChartComponent :collectionId="$route.params.id"></ChartComponent>
+              <TransactionPostComponent :collectionId="$route.params.id"></TransactionPostComponent>
+          </div>
+      </main>
 </template>
 
 <script>

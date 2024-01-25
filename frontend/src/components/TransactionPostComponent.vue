@@ -20,7 +20,12 @@
 <script>
 import axios from "axios";
 
+const email = 'john.doe@example.com';
+
+// const props = defineProps(['collectionId']);
+
 export default {
+    props: ['collectionId'], // Definice props pro komponentu
     data() {
         return {
             operator: "+",
@@ -39,6 +44,8 @@ export default {
                     {
                         amount: signedAmount,
                         time: this.time,
+                        email: email,
+                        collectionId: this.collectionId,
                     }
                 );
 

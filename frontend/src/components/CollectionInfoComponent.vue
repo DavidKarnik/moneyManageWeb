@@ -1,4 +1,5 @@
 <template>
+    <h2>Collection Info</h2>
     <div>
         <p>ID: {{ props.collectionId }}</p>
         <p id="balance">Balance: {{ currentBalance }}</p>

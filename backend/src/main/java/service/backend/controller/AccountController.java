@@ -24,20 +24,6 @@ public class AccountController {
         return accountService.getUsersCollectionsByEmail(email);
     }
 
-    @GetMapping("/transactions")
-    public ResponseEntity<List<Transaction>> getTransactionsByEmailAndCollectionId(
-            @RequestParam String email,
-            @RequestParam String collectionId
-    ) {
-        List<Transaction> transactions = accountService.getTransactions(email, collectionId);
-
-        if (!transactions.isEmpty()) {
-            return ResponseEntity.ok(transactions);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/balances")
     public ResponseEntity<List<Balance>> getBalanceByEmailAndCollectionId(
             @RequestParam String email,
