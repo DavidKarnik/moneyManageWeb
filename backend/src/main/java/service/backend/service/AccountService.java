@@ -53,14 +53,14 @@ public class AccountService {
     }
 
     public Balance getHighestBalance(String email, String collectionId) {
-        List<Balance> balances = getBalanceHistory(email,collectionId);
+        List<Balance> balances = getBalanceHistory(email, collectionId);
         return balances.stream()
                 .max(Comparator.comparing(Balance::getBalance))
                 .orElse(null);
     }
 
     public Balance getLowestBalance(String email, String collectionId) {
-        List<Balance> balances = getBalanceHistory(email,collectionId);
+        List<Balance> balances = getBalanceHistory(email, collectionId);
         return balances.stream()
                 .min(Comparator.comparing(Balance::getBalance))
                 .orElse(null);
@@ -143,7 +143,7 @@ public class AccountService {
 
         List<Balance> balanceHistory = new ArrayList<>();
 
-        double currentBalance = getCurrentBalance(email,collectionId);
+        double currentBalance = getCurrentBalance(email, collectionId);
 
         // sorted from newest to oldest - for recursive balance calculation
         transactions.sort(Comparator.comparing(Transaction::getDate).reversed());
@@ -163,7 +163,7 @@ public class AccountService {
             double transactionAmount = transaction.getBalance();
 
             // Reversed, from back to front * -1
-            currentBalance += -1*transactionAmount;
+            currentBalance += -1 * transactionAmount;
 //            System.out.println(currentBalance);
 
             Balance historyEntry = new Balance(date, currentBalance);
@@ -179,5 +179,22 @@ public class AccountService {
         return balanceHistory;
     }
 
+    public void addTransaction(String email, String collectionId, String time, double amount) {
+
+        Collection collection = getCollection(email, collectionId).orElse(null);
+
+        if (collection != null) {
+            // Vytvoříme novou transakci
+//                String transaction = String.format("%s|%s%.2f", time, amount >= 0 ? "+" : "", amount);
+
+            Transaction transaction = new Transaction(time, amount);
+            // Přidáme novou transakci do seznamu transakcí
+            collection.getTransactions().add(transaction);
+
+            // Aktualizujeme saldo účtu
+            collection.setBalance(collection.getBalance() + amount);
+        }
+
+    }
 }
 

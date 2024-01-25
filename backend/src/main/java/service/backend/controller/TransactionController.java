@@ -37,12 +37,14 @@ public class TransactionController {
             String email = (String) transactionData.get("email");
             String collectionId = (String) transactionData.get("collectionId");
 
+            accountService.addTransaction(email, collectionId, time, amount);
+
             // Zpracování dat a výpis do konzole
             System.out.println("Amount: " + amount);
             System.out.println("Time: " + time);
             System.out.println("email: " + email);
             System.out.println("collectionId: " + collectionId);
-
+            System.out.println("Transaction created successfully");
             // Vrácení odpovědi
             return ResponseEntity.ok("Transaction created successfully");
         } catch (Exception e) {
