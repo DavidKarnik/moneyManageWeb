@@ -1,12 +1,11 @@
 {
   "accounts": [
     {
-      "email": "john.doe@example.com",
       "collections": [
         {
-          "id": "f6681d5d-1ab3-4213-b45c",
           "nameOfAccount": "Personal Account",
-          "balance": 1000.00,
+          "balance": 1000.0,
+          "id": "f6681d5d-1ab3-4213-b45c",
           "transactions": [
             "2023-05-01 18:07:19|+1000",
             "2023-05-12 16:48:00|+99",
@@ -19,9 +18,9 @@
           ]
         },
         {
-          "id": "3a268b02-881f-409b-b22e",
           "nameOfAccount": "Savings Account",
-          "balance": 15000.00,
+          "balance": 15000.0,
+          "id": "3a268b02-881f-409b-b22e",
           "transactions": [
             "2023-05-05 18:07:19|+1000",
             "2023-05-06 16:48:00|+1000",
@@ -86,47 +85,53 @@
             "2024-01-10 18:07:19|+300",
             "2024-01-12 16:48:00|+200",
             "2024-01-14 12:30:45|-150",
-            "2024-01-15 18:07:19|+20"
+            "2024-01-15 18:07:19|+20",
+            "2024-01-26 15:01:00|+69.0",
+            "2024-01-26 15:07|+10000.0",
+            "2024-01-26 15:11|+10000.0",
+            "2024-01-26 15:11|-10000.0",
+            "2024-01-26 15:11|-100000.0"
           ]
         }
-      ]
+      ],
+      "email": "john.doe@example.com"
     },
     {
-      "email": "jane.smith@example.com",
       "collections": [
         {
-          "id": "3",
           "nameOfAccount": "Main Account",
-          "balance": 3000.00,
+          "balance": 3000.0,
+          "id": "3",
           "transactions": [
             "2023-05-10 14:20:00|+200",
             "2023-05-14 19:45:30|-300"
           ]
         }
-      ]
+      ],
+      "email": "jane.smith@example.com"
     },
     {
-      "email": "alice.johnson@example.com",
       "collections": [
         {
-          "id": "4",
           "nameOfAccount": "Investment Account",
-          "balance": 8000.00,
+          "balance": 8000.0,
+          "id": "4",
           "transactions": [
             "2023-05-16 17:56:39|-123",
             "2023-05-22 08:10:15|+1000"
           ]
         },
         {
-          "id": "5",
           "nameOfAccount": "Secondary Account",
-          "balance": 2000.00,
+          "balance": 2000.0,
+          "id": "5",
           "transactions": [
             "2023-05-18 10:30:00|-300",
             "2023-05-25 15:20:45|+500"
           ]
         }
-      ]
+      ],
+      "email": "alice.johnson@example.com"
     }
   ]
 }

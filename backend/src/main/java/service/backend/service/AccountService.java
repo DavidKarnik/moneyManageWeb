@@ -11,6 +11,7 @@ import service.backend.model.Collection;
 import service.backend.model.Transaction;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -151,10 +152,9 @@ public class AccountService {
 
         // Přidávání prvního záznamu bez změny
         LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String currentFormattedDate = currentDateTime.format(formatter);
 
-        // Přidání prvního záznamu bez změny
         Balance initialEntry = new Balance(currentFormattedDate, currentBalance);
         balanceHistory.add(initialEntry);
 
@@ -179,22 +179,59 @@ public class AccountService {
         return balanceHistory;
     }
 
-    public void addTransaction(String email, String collectionId, String time, double amount) {
+    public Boolean addTransaction(String _email, String _collectionId, String _time, double _amount) {
 
-        Collection collection = getCollection(email, collectionId).orElse(null);
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8);
 
-        if (collection != null) {
-            // Vytvoříme novou transakci
-//                String transaction = String.format("%s|%s%.2f", time, amount >= 0 ? "+" : "", amount);
+            JSONParser parser = new JSONParser();
+            JSONObject logObject = (JSONObject) parser.parse(reader);
 
-            Transaction transaction = new Transaction(time, amount);
-            // Přidáme novou transakci do seznamu transakcí
-            collection.getTransactions().add(transaction);
+            JSONArray accountsArray = (JSONArray) logObject.get("accounts");
 
-            // Aktualizujeme saldo účtu
-            collection.setBalance(collection.getBalance() + amount);
+            for (Object o : accountsArray) {
+                JSONObject accountUser = (JSONObject) o;
+
+                if (Objects.equals(accountUser.get("email").toString(), _email)) {
+                    System.out.println("Email found successfully");
+                    JSONArray collectionsJsonArray = (JSONArray) accountUser.get("collections");
+
+                    for (Object collectionObj : collectionsJsonArray) {
+                        JSONObject collectionJson = (JSONObject) collectionObj;
+
+                        if (Objects.equals(collectionJson.get("id").toString(), _collectionId)) {
+                            System.out.println("ID found successfully");
+                            JSONArray transactionsArray = (JSONArray) collectionJson.get("transactions");
+
+                            String operator = "";
+                            if (_amount > 0) {
+                                operator = "+";
+                            }
+                            transactionsArray.add(_time.replace("T", " ") + "|" + operator + _amount);
+
+                            FileWriter file = new FileWriter(filePath);
+                            file.write(logObject.toString());
+                            file.flush();
+                            file.close();
+
+                            reader.close();
+
+                            // refresh transactions
+                            this.accounts = loadAccountsFromJsonFile();
+
+                            return true;
+                        }
+                    }
+                }
+
+            }
+            reader.close();
+            return false;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
         }
 
     }
-}
 
+}
