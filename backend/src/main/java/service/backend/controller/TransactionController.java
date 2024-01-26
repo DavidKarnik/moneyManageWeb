@@ -1,5 +1,6 @@
 package service.backend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.backend.model.Transaction;
@@ -12,7 +13,12 @@ import java.util.Map;
 @RequestMapping("/api")
 public class TransactionController {
 
-    private final AccountService accountService = new AccountService();
+    private final AccountService accountService;
+
+    @Autowired
+    public TransactionController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @GetMapping("/transactions")
     public ResponseEntity<List<Transaction>> getTransactionsByEmailAndCollectionId(

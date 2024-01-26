@@ -1,5 +1,6 @@
 package service.backend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.backend.model.Balance;
@@ -15,6 +16,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    @Autowired
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -46,13 +48,13 @@ public class AccountController {
 
     @GetMapping("/highestBalance")
     public ResponseEntity<Balance> getHighestBalance(@RequestParam String email, @RequestParam String collectionId) {
-        Balance highestBalance = accountService.getHighestBalance(email,collectionId);
+        Balance highestBalance = accountService.getHighestBalance(email, collectionId);
         return ResponseEntity.ok(highestBalance);
     }
 
     @GetMapping("/lowestBalance")
     public ResponseEntity<Balance> getLowestBalance(@RequestParam String email, @RequestParam String collectionId) {
-        Balance lowestBalance = accountService.getLowestBalance(email,collectionId);
+        Balance lowestBalance = accountService.getLowestBalance(email, collectionId);
         return ResponseEntity.ok(lowestBalance);
     }
 
