@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Collection from "@/views/Collection.vue";
+import NewDashboard from "@/views/NewDashboard.vue";
 
 const routes = [
     {
@@ -17,6 +18,10 @@ const routes = [
         path: '/collection/:id',
         name: 'Collection',
         component: Collection,
+    },
+    {
+        path: '/new',
+        component: NewDashboard,
     },
 ];
 
